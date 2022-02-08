@@ -2,7 +2,7 @@ const pool = require('./dbCon');
 
 const create = (request, response) => {
     const {menu,url,icon} = request.body;
-    pool.query('INSERT INTO tbl_menus (menu,url,icon) VALUES ($1) RETURNING id', [menu,url,icon], (error, results) => {
+    pool.query('INSERT INTO tbl_menus (menu,url,icon) VALUES ($1,$2,$3) RETURNING id', [menu,url,icon], (error, results) => {
         if (error) {
           if (error.code == '23505')
           {
