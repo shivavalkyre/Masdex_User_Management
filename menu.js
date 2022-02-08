@@ -25,13 +25,13 @@ const read = (request, response) => {
     var offset = (page_req - 1) * rows_req
     var res = []
     var items = []
-    pool.query('SELECT count(*) as total FROM tbl_moduls WHERE is_delete=false', (error, results) => {
+    pool.query('SELECT count(*) as total FROM tbl_menus WHERE is_delete=false', (error, results) => {
       if (error) {
         response.status(400).send({success:false,data: error})
         return;
       }
       res.push({total:results.rows[0].total})
-      var sql=  'SELECT * FROM tbl_moduls WHERE is_delete=false ORDER BY id ASC'
+      var sql=  'SELECT * FROM tbl_menus WHERE is_delete=false ORDER BY id ASC'
       pool.query(
        sql,
         (error, results) => {
@@ -58,7 +58,7 @@ const update = (request, response) => {
       }
       if (results.rowCount >0){
         var update_time = new Date
-        pool.query('UPDATE tbl_menus set menu=$1,url=$2,icon=$3 WHERE id=$4', [menu,,url,icon,id], (error, results) => {
+        pool.query('UPDATE tbl_menus set menu=$1,url=$2,icon=$3,updated_at=$4 WHERE id=$5', [menu,url,icon,update_time,id], (error, results) => {
           if (error) {
             response.status(400).send({success:false,data: error})
             return;
@@ -95,7 +95,7 @@ const update = (request, response) => {
             response.status(400).send({success:false,data: error1})
             return;
           }
-          response.status(200).send({success:true,data:'Delete role success'})
+          response.status(200).send({success:true,data:'Delete menu success'})
       })
 
       }else{

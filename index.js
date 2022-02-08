@@ -69,7 +69,7 @@ const dbMenus = require('./menu')
     app.put('/api/V2/role_management/menu/:id',dbMenus.update);
     app.delete('/api/V2/role_management/menu/:id',dbMenus.delete_);
 // ===========================================================================
-const dbModulMenu = require('./menu')
+const dbModulMenu = require('./modul_menu')
 // =========================== Role ==========================================
     app.post('/api/V2/role_management/modul_menu',dbModulMenu.create);
     app.get('/api/V2/role_management/modul_menu',dbModulMenu.read);

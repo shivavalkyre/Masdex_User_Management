@@ -2,7 +2,7 @@ const pool = require('./dbCon');
 
 const create = (request, response) => {
     const {modul_id,menu_id} = request.body;
-    pool.query('INSERT INTO tbl_modul_menu (modul_id,menu_id) VALUES ($1) RETURNING id', [modul_id,menu_id], (error, results) => {
+    pool.query('INSERT INTO tbl_modul_menu (modul_id,menu_id) VALUES ($1,$2) RETURNING id', [modul_id,menu_id], (error, results) => {
         if (error) {
           if (error.code == '23505')
           {
@@ -49,7 +49,7 @@ const read = (request, response) => {
 
 const update = (request, response) => {
     const id = parseInt(request.params.id)
-    const {modul_id} = request.body
+    const {modul_id,menu_id} = request.body
     // select data first
     pool.query('SELECT * FROM tbl_modul_menu WHERE id=$1', [id],(error, results) => {
       if (error) {
@@ -58,12 +58,12 @@ const update = (request, response) => {
       }
       if (results.rowCount >0){
         var update_time = new Date
-        pool.query('UPDATE tbl_moduls set modul_id=$1,menu_id=$2 WHERE id=$3', [modul_id,menu_id,id], (error, results) => {
+        pool.query('UPDATE tbl_modul_menu set modul_id=$1,menu_id=$2,updated_at=$3 WHERE id=$4', [modul_id,menu_id,update_time,id], (error, results) => {
           if (error) {
             response.status(400).send({success:false,data: error})
             return;
           }
-          response.status(200).send({success:true,data:'Update modul id: '+ id+ ' success'})
+          response.status(200).send({success:true,data:'Update modul menu id: '+ id+ ' success'})
       })
       }else{
           response.status(400).send({success:false,data:'Data not found'})
@@ -95,7 +95,7 @@ const update = (request, response) => {
             response.status(400).send({success:false,data: error1})
             return;
           }
-          response.status(200).send({success:true,data:'Delete role success'})
+          response.status(200).send({success:true,data:'Delete modul menu success'})
       })
 
       }else{

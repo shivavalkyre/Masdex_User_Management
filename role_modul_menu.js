@@ -58,12 +58,12 @@ const update = (request, response) => {
       }
       if (results.rowCount >0){
         var update_time = new Date
-        pool.query('UPDATE tbl_role_modul set role_modul_id=$1,menu_id=$2,allow_view=$3,allow_create=$4,allow_read=$5,allow_update=$6,allow_delete=$7,updated_at=$8 WHERE id=$9', [role_modul_id,menu_id,allow_view,allow_create,allow_read,allow_update,allow_delete,update_time,id], (error, results) => {
+        pool.query('UPDATE tbl_role_modul_menu set role_modul_id=$1,menu_id=$2,allow_view=$3,allow_create=$4,allow_read=$5,allow_update=$6,allow_delete=$7,updated_at=$8 WHERE id=$9', [role_modul_id,menu_id,allow_view,allow_create,allow_read,allow_update,allow_delete,update_time,id], (error, results) => {
           if (error) {
             response.status(400).send({success:false,data: error})
             return;
           }
-          response.status(200).send({success:true,data:'Update role id: '+ id+ ' success'})
+          response.status(200).send({success:true,data:'Update role modul menu id: '+ id+ ' success'})
       })
       }else{
           response.status(400).send({success:false,data:'Data not found'})
@@ -95,7 +95,7 @@ const update = (request, response) => {
             response.status(400).send({success:false,data: error1})
             return;
           }
-          response.status(200).send({success:true,data:'Delete role success'})
+          response.status(200).send({success:true,data:'Delete role modul menu success'})
       })
 
       }else{
