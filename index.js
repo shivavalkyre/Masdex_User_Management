@@ -62,6 +62,20 @@ const dbModul = require('./modul')
     app.put('/api/V2/role_management/modul/:id',dbModul.update);
     app.delete('/api/V2/role_management/modul/:id',dbModul.delete_);
 // ===========================================================================
+const dbMenus = require('./menu')
+// =========================== Role ==========================================
+    app.post('/api/V2/role_management/menu',dbMenus.create);
+    app.get('/api/V2/role_management/menu',dbMenus.read);
+    app.put('/api/V2/role_management/menu/:id',dbMenus.update);
+    app.delete('/api/V2/role_management/menu/:id',dbMenus.delete_);
+// ===========================================================================
+const dbModulMenu = require('./menu')
+// =========================== Role ==========================================
+    app.post('/api/V2/role_management/modul_menu',dbModulMenu.create);
+    app.get('/api/V2/role_management/modul_menu',dbModulMenu.read);
+    app.put('/api/V2/role_management/modul_menu/:id',dbModulMenu.update);
+    app.delete('/api/V2/role_management/modul_menu/:id',dbModulMenu.delete_);
+// ===========================================================================
 
 const dbRoleModul = require('./role_modul')
 // =========================== Role ==========================================
@@ -69,6 +83,15 @@ const dbRoleModul = require('./role_modul')
     app.get('/api/V2/role_management/role_modul',dbRoleModul.read);
     app.put('/api/V2/role_management/role_modul/:id',dbRoleModul.update);
     app.delete('/api/V2/role_management/role_modul/:id',dbRoleModul.delete_);
+// ===========================================================================
+
+
+const dbRoleModulMenu = require('./role_modul_menu')
+// =========================== Role ==========================================
+    app.post('/api/V2/role_management/role_modul_menu',dbRoleModulMenu.create);
+    app.get('/api/V2/role_management/role_modul_menu',dbRoleModulMenu.read);
+    app.put('/api/V2/role_management/role_modul_menu/:id',dbRoleModulMenu.update);
+    app.delete('/api/V2/role_management/role_modul_menu/:id',dbRoleModulMenu.delete_);
 // ===========================================================================
 
 // authentification part======================================================
