@@ -94,6 +94,12 @@ const dbRoleModulMenu = require('./role_modul_menu')
     app.delete('/api/V2/role_management/role_modul_menu/:id',dbRoleModulMenu.delete_);
 // ===========================================================================
 
+const dbUserRole = require('./user_role')
+// =========================== User Role ==========================================
+app.put('/api/V2/role_management/user_role_navigasi/:id',dbUserRole.update_role_navigasi);
+app.put('/api/V2/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
+// =================================================================================
+
 // authentification part======================================================
 
 function authenticateToken(req, res, next) {
