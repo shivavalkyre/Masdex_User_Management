@@ -103,23 +103,28 @@ app.put('/api/V2/role_management/user_role_stakeholder/:id',dbUserRole.update_ro
 
 const dbUser = require('./user')
 // =============================== USER =====================================
-app.post('/api/V1/masdex/user', dbUser.create);
-app.get('/api/V1/masdex/user/all',dbUser.readall);
-app.get('/api/V1/masdex/user/:id',dbUser.read_by_id);
-app.patch('/api/V1/masdex/user/:id',dbUser.update);
-app.delete('/api/V1/masdex/user/:id',dbUser.delete_);
+app.post('/api/V1/role_management/user', dbUser.create);
+app.get('/api/V1/role_management/all',dbUser.readall);
+app.get('/api/V1/role_management/:id',dbUser.read_by_id);
+app.patch('/api/V1/role_management/:id',dbUser.update);
+app.delete('/api/V1/role_management/:id',dbUser.delete_);
 // ==========================================================================
 const dbUserStakeholder = require('./user_stakeholder')
 // =============================== USER STAKEHOLDER =====================================
-app.post('/api/V1/masdex/user_stakeholder', dbUserStakeholder.create);
-app.get('/api/V1/masdex/user_stakeholder/profile/:id', dbUserStakeholder.detail_profile);
-app.get('/api/V1/masdex/user_stakeholder/all',dbUserStakeholder.readall);
+app.post('/api/V1/role_management/user_stakeholder', dbUserStakeholder.create);
+app.get('/api/V1/role_management/user_stakeholder/profile/:id', dbUserStakeholder.detail_profile);
+app.get('/api/V1/role_management/user_stakeholder/all',dbUserStakeholder.readall);
 
-app.get('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.read_by_id);
+app.get('/api/V1/role_management/user_stakeholder/:id',dbUserStakeholder.read_by_id);
 //app.post('/api/V1/masdex/user_stakeholder/login', user_stakeholder.read);
-app.patch('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.update);
-app.delete('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.delete_);
+app.patch('/api/V1/role_management/user_stakeholder/:id',dbUserStakeholder.update);
+app.delete('/api/V1/role_management/user_stakeholder/:id',dbUserStakeholder.delete_);
 // ==========================================================================
+
+// =============================== LOGIN USER ===============================
+app.post('/api/V1/role_management/login',dbUser.login);
+// ==========================================================================
+
 // authentification part======================================================
 
 function authenticateToken(req, res, next) {
