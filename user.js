@@ -16,7 +16,8 @@ const create = (request, response) => {
         password,
         email,
         photo,
-        nama_lengkap
+        nama_lengkap,
+        role_id
     } = request.body
 
     pool.query('SELECT Count(*) as total FROM masdex_users_all WHERE username = $1', [username], (error, results) => {
@@ -53,7 +54,7 @@ const create = (request, response) => {
                 bcrypt.hash(password, salt, function (err, res) {
                     password_hash = res;
                     console.log(password_hash);
-                    pool.query('INSERT INTO tbl_users (username,password,email,photo,nama_lengkap,url_photo) VALUES($1,$2,$3,$4,$5,$6)', [username, password_hash, email, name, nama_lengkap, complete_path], (error, results) => {
+                    pool.query('INSERT INTO tbl_users (username,password,email,photo,nama_lengkap,url_photo,role_id) VALUES($1,$2,$3,$4,$5,$6,$7)', [username, password_hash, email, name, nama_lengkap, complete_path,role_id], (error, results) => {
                         if (error) {
                             throw error
                         }
@@ -236,7 +237,8 @@ const update = (request, response) => {
             password,
             email,
             photo,
-            nama_lengkap
+            nama_lengkap,
+            role_id,
         } = request.body
 
         pool.query('SELECT Count(*) as total FROM tbl_users WHERE id = $1', [id], (error, results) => {
@@ -284,7 +286,7 @@ const update = (request, response) => {
                                                 } else {
                                                     name = null;
                                                 }
-                                                pool.query('UPDATE tbl_users SET username=$1,password=$2,email=$3,photo=$4,nama_lengkap=$5,url_photo=$6 WHERE username=$7', [username, password_hash, email, name, nama_lengkap, complete_path, username], (error, results) => {
+                                                pool.query('UPDATE tbl_users SET username=$1,password=$2,email=$3,photo=$4,nama_lengkap=$5,url_photo=$6,role_id=$7 WHERE username=$8', [username, password_hash, email, name, nama_lengkap, complete_path,role_id, username], (error, results) => {
                                                     if (error) {
                                                         throw error
                                                     }
