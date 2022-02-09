@@ -55,7 +55,7 @@ const read_by_jenis = (request, response) => {
     var offset = (page_req - 1) * rows_req
     var res = []
     var items = []
-    pool.query('SELECT count(*) as total FROM tbl_role WHERE jenis=$ AND is_delete=false',[jenis], (error, results) => {
+    pool.query('SELECT count(*) as total FROM tbl_role WHERE jenis=$1 AND is_delete=false',[jenis], (error, results) => {
       if (error) {
         response.status(400).send({success:false,data: error})
         return;
