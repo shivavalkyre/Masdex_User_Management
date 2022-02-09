@@ -50,55 +50,57 @@ app.use(express.urlencoded({
 // routing part
 const dbRole = require('./role')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/role',dbRole.create);
-    app.get('/api/V2/role_management/role',dbRole.read);
-    app.post('/api/V2/role_management/role/jenis',dbRole.read_by_jenis);
-    app.put('/api/V2/role_management/role/:id',dbRole.update);
-    app.delete('/api/V2/role_management/role/:id',dbRole.delete_);
+    app.post('/api/V1/role_management/role',dbRole.create);
+    app.get('/api/V1/role_management/role',dbRole.read);
+    app.post('/api/V1/role_management/role/jenis',dbRole.read_by_jenis);
+    app.put('/api/V1/role_management/role/:id',dbRole.update);
+    app.delete('/api/V1/role_management/role/:id',dbRole.delete_);
 // ===========================================================================
 const dbModul = require('./modul')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/modul',dbModul.create);
-    app.get('/api/V2/role_management/modul',dbModul.read);
-    app.put('/api/V2/role_management/modul/:id',dbModul.update);
-    app.delete('/api/V2/role_management/modul/:id',dbModul.delete_);
+    app.post('/api/V1/role_management/modul',dbModul.create);
+    app.get('/api/V1/role_management/modul',dbModul.read);
+    app.put('/api/V1/role_management/modul/:id',dbModul.update);
+    app.delete('/api/V1/role_management/modul/:id',dbModul.delete_);
 // ===========================================================================
 const dbMenus = require('./menu')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/menu',dbMenus.create);
-    app.get('/api/V2/role_management/menu',dbMenus.read);
-    app.put('/api/V2/role_management/menu/:id',dbMenus.update);
-    app.delete('/api/V2/role_management/menu/:id',dbMenus.delete_);
+    app.post('/api/V1/role_management/menu',dbMenus.create);
+    app.get('/api/V1/role_management/menu',dbMenus.read);
+    app.put('/api/V1/role_management/menu/:id',dbMenus.update);
+    app.delete('/api/V1/role_management/menu/:id',dbMenus.delete_);
 // ===========================================================================
 const dbModulMenu = require('./modul_menu')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/modul_menu',dbModulMenu.create);
-    app.get('/api/V2/role_management/modul_menu',dbModulMenu.read);
-    app.put('/api/V2/role_management/modul_menu/:id',dbModulMenu.update);
-    app.delete('/api/V2/role_management/modul_menu/:id',dbModulMenu.delete_);
+    app.post('/api/V1/role_management/modul_menu',dbModulMenu.create);
+    app.get('/api/V1/role_management/modul_menu',dbModulMenu.read);
+    app.put('/api/V1/role_management/modul_menu/:id',dbModulMenu.update);
+    app.delete('/api/V1/role_management/modul_menu/:id',dbModulMenu.delete_);
 // ===========================================================================
 
 const dbRoleModul = require('./role_modul')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/role_modul',dbRoleModul.create);
-    app.get('/api/V2/role_management/role_modul',dbRoleModul.read);
-    app.put('/api/V2/role_management/role_modul/:id',dbRoleModul.update);
-    app.delete('/api/V2/role_management/role_modul/:id',dbRoleModul.delete_);
+    app.post('/api/V1/role_management/role_modul',dbRoleModul.create);
+    app.get('/api/V1/role_management/role_modul',dbRoleModul.read);
+    app.put('/api/V1/role_management/role_modul/:id',dbRoleModul.update);
+    app.delete('/api/V1/role_management/role_modul/:id',dbRoleModul.delete_);
 // ===========================================================================
 
 
 const dbRoleModulMenu = require('./role_modul_menu')
 // =========================== Role ==========================================
-    app.post('/api/V2/role_management/role_modul_menu',dbRoleModulMenu.create);
-    app.get('/api/V2/role_management/role_modul_menu',dbRoleModulMenu.read);
-    app.put('/api/V2/role_management/role_modul_menu/:id',dbRoleModulMenu.update);
-    app.delete('/api/V2/role_management/role_modul_menu/:id',dbRoleModulMenu.delete_);
+    app.post('/api/V1/role_management/role_modul_menu',dbRoleModulMenu.create);
+    app.get('/api/V1/role_management/role_modul_menu',dbRoleModulMenu.read);
+    app.put('/api/V1/role_management/role_modul_menu/:id',dbRoleModulMenu.update);
+    app.delete('/api/V1/role_management/role_modul_menu/:id',dbRoleModulMenu.delete_);
 // ===========================================================================
 
 const dbUserRole = require('./user_role')
 // =========================== User Role ==========================================
-app.put('/api/V2/role_management/user_role_navigasi/:id',dbUserRole.update_role_navigasi);
-app.put('/api/V2/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
+app.post('/api/V1/role_management/user_role_navigasi/:id',dbUserRole.read_user_role_access);
+app.put('/api/V1/role_management/user_role_navigasi/:id',dbUserRole.update_role_navigasi);
+app.post('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.read_user_stakeholder_role_access);
+app.put('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
 // =================================================================================
 
 const dbUser = require('./user')
