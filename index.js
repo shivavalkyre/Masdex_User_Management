@@ -52,6 +52,7 @@ const dbRole = require('./role')
 // =========================== Role ==========================================
     app.post('/api/V2/role_management/role',dbRole.create);
     app.get('/api/V2/role_management/role',dbRole.read);
+    app.post('/api/V2/role_management/role/jenis',dbRole.read_by_jenis);
     app.put('/api/V2/role_management/role/:id',dbRole.update);
     app.delete('/api/V2/role_management/role/:id',dbRole.delete_);
 // ===========================================================================
@@ -100,6 +101,25 @@ app.put('/api/V2/role_management/user_role_navigasi/:id',dbUserRole.update_role_
 app.put('/api/V2/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
 // =================================================================================
 
+const dbUser = require('./user')
+// =============================== USER =====================================
+app.post('/api/V1/masdex/user', dbUser.create);
+app.get('/api/V1/masdex/user/all',dbUser.readall);
+app.get('/api/V1/masdex/user/:id',dbUser.read_by_id);
+app.patch('/api/V1/masdex/user/:id',dbUser.update);
+app.delete('/api/V1/masdex/user/:id',dbUser.delete_);
+// ==========================================================================
+const dbUserStakeholder = require('./user_stakeholder')
+// =============================== USER STAKEHOLDER =====================================
+app.post('/api/V1/masdex/user_stakeholder', dbUserStakeholder.create);
+app.get('/api/V1/masdex/user_stakeholder/profile/:id', dbUserStakeholder.detail_profile);
+app.get('/api/V1/masdex/user_stakeholder/all',dbUserStakeholder.readall);
+
+app.get('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.read_by_id);
+//app.post('/api/V1/masdex/user_stakeholder/login', user_stakeholder.read);
+app.patch('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.update);
+app.delete('/api/V1/masdex/user_stakeholder/:id',dbUserStakeholder.delete_);
+// ==========================================================================
 // authentification part======================================================
 
 function authenticateToken(req, res, next) {

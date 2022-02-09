@@ -47,6 +47,36 @@ const read = (request, response) => {
     
 }
 
+const read_by_jenis = (request, response) => {
+    const { jenis } = request.body
+    const {page,rows} = request.body
+    var page_req = page || 1
+    var rows_req = rows || 3
+    var offset = (page_req - 1) * rows_req
+    var res = []
+    var items = []
+    pool.query('SELECT count(*) as total FROM tbl_role WHERE jenis=$ AND is_delete=false',[jenis], (error, results) => {
+      if (error) {
+        response.status(400).send({success:false,data: error})
+        return;
+      }
+      res.push({total:results.rows[0].total})
+      var sql=  'SELECT * FROM tbl_role WHERE jenis=$1 AND is_delete=false ORDER BY id ASC'
+      pool.query(
+       sql,[jenis],
+        (error, results) => {
+          if (error) {
+            response.status(400).send({success:false,data:error})
+          }
+          items.push({rows:results.rows})
+          res.push(items)
+          response.status(200).send({success:true,data:res})
+          //response.status(200).send(res)
+        })
+    })
+    
+}
+
 const update = (request, response) => {
     const id = parseInt(request.params.id)
     const {role,jenis,level} = request.body
@@ -110,6 +140,7 @@ module.exports = {
 
     create,
     read,
+    read_by_jenis,
     update,
     delete_
 }
