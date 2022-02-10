@@ -101,6 +101,8 @@ app.post('/api/V1/role_management/user_role_navigasi/:id',dbUserRole.read_user_r
 app.put('/api/V1/role_management/user_role_navigasi/:id',dbUserRole.update_role_navigasi);
 app.post('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.read_user_stakeholder_role_access);
 app.put('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
+app.get('/api/V1/role_management/modul_role_navigasi/:id',dbUserRole.read_modul_role_access);
+app.get('/api/V1/role_management/modul_role_stakeholder/:id',dbUserRole.read_modul_stakeholder_role_access);
 // =================================================================================
 
 const dbUser = require('./user')
