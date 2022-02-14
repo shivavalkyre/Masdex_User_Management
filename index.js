@@ -53,6 +53,7 @@ const dbRole = require('./role')
     app.post('/api/V1/role_management/role',dbRole.create);
     app.get('/api/V1/role_management/role',dbRole.read);
     app.post('/api/V1/role_management/role/jenis',dbRole.read_by_jenis);
+    app.get('/api/V1/role_management/role/modul/:id',dbRole.read_by_modul);
     app.put('/api/V1/role_management/role/:id',dbRole.update);
     app.delete('/api/V1/role_management/role/:id',dbRole.delete_);
 // ===========================================================================

@@ -136,7 +136,7 @@ const login = (request, response) => {
                         const token = generateAccessToken({
                             username: username
                         })
-                        //console.log(token);
+                        console.log(rows[0].stakeholder);
                         response.status(200).json({
                             success: true,
                             "token": token,

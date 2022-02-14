@@ -47,23 +47,23 @@ const read = (request, response) => {
     
 }
 
-const read_by_jenis = (request, response) => {
-    const { jenis } = request.body
+const read_by_modul = (request, response) => {
+  const modul_id = parseInt(request.params.id)
     const {page,rows} = request.body
     var page_req = page || 1
     var rows_req = rows || 3
     var offset = (page_req - 1) * rows_req
     var res = []
     var items = []
-    pool.query('SELECT count(*) as total FROM tbl_role WHERE jenis=$1 AND is_delete=false',[jenis], (error, results) => {
+    pool.query('SELECT count(*) as total FROM read_role_by_modul WHERE modul_id=$1',[modul_id], (error, results) => {
       if (error) {
         response.status(400).send({success:false,data: error})
         return;
       }
       res.push({total:results.rows[0].total})
-      var sql=  'SELECT * FROM tbl_role WHERE jenis=$1 AND is_delete=false ORDER BY id ASC'
+      var sql=  'SELECT * FROM read_role_by_modul WHERE modul_id=$1 ORDER BY role_id ASC'
       pool.query(
-       sql,[jenis],
+       sql,[modul_id],
         (error, results) => {
           if (error) {
             response.status(400).send({success:false,data:error})
@@ -75,6 +75,36 @@ const read_by_jenis = (request, response) => {
         })
     })
     
+}
+
+const read_by_jenis = (request, response) => {
+  const { jenis } = request.body
+  const {page,rows} = request.body
+  var page_req = page || 1
+  var rows_req = rows || 3
+  var offset = (page_req - 1) * rows_req
+  var res = []
+  var items = []
+  pool.query('SELECT count(*) as total FROM tbl_role WHERE jenis=$1 AND is_delete=false',[jenis], (error, results) => {
+    if (error) {
+      response.status(400).send({success:false,data: error})
+      return;
+    }
+    res.push({total:results.rows[0].total})
+    var sql=  'SELECT * FROM tbl_role WHERE jenis=$1 AND is_delete=false ORDER BY id ASC'
+    pool.query(
+     sql,[jenis],
+      (error, results) => {
+        if (error) {
+          response.status(400).send({success:false,data:error})
+        }
+        items.push({rows:results.rows})
+        res.push(items)
+        response.status(200).send({success:true,data:res})
+        //response.status(200).send(res)
+      })
+  })
+  
 }
 
 const update = (request, response) => {
@@ -141,6 +171,7 @@ module.exports = {
     create,
     read,
     read_by_jenis,
+    read_by_modul,
     update,
     delete_
 }
