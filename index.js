@@ -55,6 +55,7 @@ const dbRole = require('./role')
     app.post('/api/V1/role_management/role/jenis',dbRole.read_by_jenis);
     app.get('/api/V1/role_management/role/modul/:id',dbRole.read_by_modul);
     app.put('/api/V1/role_management/role/:id',dbRole.update);
+    app.get('/api/V1/role_management/role/read_by_id/:id',dbRole.read_by_id);
     app.delete('/api/V1/role_management/role/:id',dbRole.delete_);
 // ===========================================================================
 const dbModul = require('./modul')
@@ -62,12 +63,14 @@ const dbModul = require('./modul')
     app.post('/api/V1/role_management/modul',dbModul.create);
     app.get('/api/V1/role_management/modul',dbModul.read);
     app.put('/api/V1/role_management/modul/:id',dbModul.update);
+    app.get('/api/V1/role_management/modul/read_by_id/:id',dbModul.read_by_id);
     app.delete('/api/V1/role_management/modul/:id',dbModul.delete_);
 // ===========================================================================
 const dbMenus = require('./menu')
 // =========================== Role ==========================================
     app.post('/api/V1/role_management/menu',dbMenus.create);
     app.get('/api/V1/role_management/menu',dbMenus.read);
+    app.get('/api/V1/role_management/menu/read_by_id/:id',dbMenus.read_by_id);
     app.put('/api/V1/role_management/menu/:id',dbMenus.update);
     app.delete('/api/V1/role_management/menu/:id',dbMenus.delete_);
 // ===========================================================================

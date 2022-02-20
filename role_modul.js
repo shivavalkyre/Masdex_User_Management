@@ -31,7 +31,7 @@ const read = (request, response) => {
         return;
       }
       res.push({total:results.rows[0].total})
-      var sql=  'SELECT * FROM tbl_role_modul WHERE is_delete=false ORDER BY id ASC'
+      var sql=  'SELECT tbl_role_modul.id, tbl_role_modul.role_id, tbl_role_modul.modul_id, tbl_role.role, tbl_moduls.modul FROM tbl_role_modul JOIN tbl_role ON tbl_role_modul.role_id = tbl_role.id JOIN tbl_moduls ON tbl_role_modul.modul_id = tbl_moduls.id WHERE tbl_role_modul.is_delete=false ORDER BY tbl_role_modul.id ASC'
       pool.query(
        sql,
         (error, results) => {
