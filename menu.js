@@ -1,8 +1,8 @@
 const pool = require('./dbCon');
 
 const create = (request, response) => {
-  const { menu, url, icon } = request.body;
-  pool.query('INSERT INTO tbl_menus (menu,url,icon) VALUES ($1,$2,$3) RETURNING id', [menu, url, icon], (error, results) => {
+  const { menu, url, icon, is_main_menu, parent_id } = request.body;
+  pool.query('INSERT INTO tbl_menus (menu,url,icon,is_main_menu,parent_id) VALUES ($1,$2,$3,$4,$5) RETURNING id', [menu, url, icon, is_main_menu, parseInt(parent_id)], (error, results) => {
     if (error) {
       if (error.code == '23505') {
         response.status(400).send({ success: false, data: 'Duplicate data' })
@@ -48,7 +48,7 @@ const read = (request, response) => {
 
 const update = (request, response) => {
   const id = parseInt(request.params.id)
-  const { menu, url, icon } = request.body
+  const { menu, url, icon, is_main_menu, parent_id } = request.body
   // select data first
   pool.query('SELECT * FROM tbl_menus WHERE id=$1', [id], (error, results) => {
     if (error) {
@@ -57,7 +57,7 @@ const update = (request, response) => {
     }
     if (results.rowCount > 0) {
       var update_time = new Date
-      pool.query('UPDATE tbl_menus set menu=$1,url=$2,icon=$3,updated_at=$4 WHERE id=$5', [menu, url, icon, update_time, id], (error, results) => {
+      pool.query('UPDATE tbl_menus set menu=$1,url=$2,icon=$3,updated_at=$4, is_main_menu=$6, parent_id=$7 WHERE id=$5', [menu, url, icon, update_time, id, is_main_menu, parseInt(parent_id)], (error, results) => {
         if (error) {
           response.status(400).send({ success: false, data: error })
           return;

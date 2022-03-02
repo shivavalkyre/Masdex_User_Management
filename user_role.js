@@ -88,6 +88,67 @@ const update_role_navigasi = (request, response) => {
 
   }
 
+  const read_modul_role_access_by_modul_and_user_id = (request, response) => {
+    const modul_id = parseInt(request.params.modul_id)
+    const user_id = parseInt(request.params.user_id)
+    //const {modul_id} = request.body
+
+    var res = []
+    var items = []
+
+    pool.query('SELECT count(*) as total FROM masdex_users_role_access WHERE modul_id=$1 AND id=$2  AND is_delete=false',[modul_id, user_id], (error, results) => {
+      if (error) {
+        response.status(400).send({success:false,data: error})
+        return;
+      }
+      res.push({total:results.rows[0].total})
+      var sql=  'SELECT * FROM masdex_users_role_access WHERE modul_id=$1 AND id=$2  AND is_delete=false ORDER BY id ASC'
+      pool.query(
+       sql,[modul_id, user_id],
+        (error, results) => {
+          if (error) {
+            response.status(400).send({success:false,data:error})
+          }
+          items.push({rows:results.rows})
+          res.push(items)
+          response.status(200).send({success:true,data:res})
+          //response.status(200).send(res)
+        })
+    })
+    
+
+  }
+
+  const read_access_rights = (request, response) => {
+    const user_id = parseInt(request.params.user_id)
+    const url = request.query.url
+
+    var res = []
+    var items = []
+
+    pool.query('SELECT count(*) as total FROM masdex_users_role_access WHERE id=$1 AND url=$2 AND is_delete=false',[user_id, url], (error, results) => {
+      if (error) {
+        response.status(400).send({success:false,data: error})
+        return;
+      }
+      res.push({total:results.rows[0].total})
+      var sql=  'SELECT * FROM masdex_users_role_access WHERE id=$1 AND url=$2 AND is_delete=false ORDER BY id ASC'
+      pool.query(
+       sql,[user_id, url],
+        (error, results) => {
+          if (error) {
+            response.status(400).send({success:false,data:error})
+          }
+          items.push({rows:results.rows})
+          res.push(items)
+          response.status(200).send({success:true,data:res})
+          //response.status(200).send(res)
+        })
+    })
+    
+
+  }
+
   const update_role_stakeholder = (request, response) => {
     const id = parseInt(request.params.id)
     const {role_id} = request.body
@@ -180,5 +241,7 @@ module.exports = {
     update_role_stakeholder,
     read_modul_role_access,
     read_modul_stakeholder_role_access,
+    read_modul_role_access_by_modul_and_user_id,
+    read_access_rights
 
 }

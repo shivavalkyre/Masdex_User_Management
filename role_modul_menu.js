@@ -58,7 +58,13 @@ const update = (request, response) => {
       }
       if (results.rowCount >0){
         var update_time = new Date
-        pool.query('UPDATE tbl_role_modul_menu set role_modul_id=$1,menu_id=$2,allow_view=$3,allow_create=$4,allow_read=$5,allow_update=$6,allow_delete=$7,updated_at=$8 WHERE id=$9', [role_modul_id,menu_id,allow_view,allow_create,allow_read,allow_update,allow_delete,update_time,id], (error, results) => {
+        console.log(results.rows['0'].allow_create)
+        let create = allow_create == null ? results.rows['0'].allow_create : allow_create
+        let read = allow_read == null ? results.rows['0'].allow_read : allow_read
+        let update = allow_update == null ? results.rows['0'].allow_update : allow_update
+        let deleted = allow_delete == null ? results.rows['0'].allow_delete : allow_delete
+        let view = allow_view == null ? results.rows['0'].allow_view : allow_view
+        pool.query('UPDATE tbl_role_modul_menu set role_modul_id=$1,menu_id=$2,allow_view=$3,allow_create=$4,allow_read=$5,allow_update=$6,allow_delete=$7,updated_at=$8 WHERE id=$9', [role_modul_id,menu_id,view,create,read,update,deleted,update_time,id], (error, results) => {
           if (error) {
             response.status(400).send({success:false,data: error})
             return;

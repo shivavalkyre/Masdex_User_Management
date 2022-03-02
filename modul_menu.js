@@ -47,6 +47,36 @@ const read = (request, response) => {
     
 }
 
+const read_by_modul_id = (request, response) => {
+  //const { id } = request.body
+  const id = parseInt(request.params.id);
+  const {page,rows} = request.body
+  var page_req = page || 1
+  var rows_req = rows || 3
+  var offset = (page_req - 1) * rows_req
+  var res = []
+  var items = []
+  pool.query('SELECT count(*) as total FROM tbl_modul_menu WHERE is_delete=false', (error, results) => {
+    if (error) {
+      response.status(400).send({success:false,data: error})
+      return;
+    }
+    res.push({total:results.rows[0].total})
+    var sql=  'SELECT tbl_modul_menu.id, tbl_modul_menu.modul_id, tbl_menus.menu, tbl_modul_menu.menu_id FROM tbl_modul_menu JOIN tbl_menus ON tbl_menus.id = tbl_modul_menu.menu_id WHERE tbl_modul_menu.is_delete=false AND tbl_modul_menu.modul_id = $1 ORDER BY tbl_modul_menu.id ASC'
+    pool.query(
+     sql, [id], (error, results) => {
+        if (error) {
+          response.status(400).send({success:false,data:error})
+        }
+        items.push({rows:results.rows})
+        res.push(items)
+        response.status(200).send({success:true,data:res})
+        //response.status(200).send(res)
+      })
+  })
+  
+}
+
 const update = (request, response) => {
     const id = parseInt(request.params.id)
     const {modul_id,menu_id} = request.body
@@ -110,6 +140,7 @@ module.exports = {
 
     create,
     read,
+    read_by_modul_id,
     update,
     delete_
 }

@@ -78,6 +78,7 @@ const dbModulMenu = require('./modul_menu')
 // =========================== Role ==========================================
     app.post('/api/V1/role_management/modul_menu',dbModulMenu.create);
     app.get('/api/V1/role_management/modul_menu',dbModulMenu.read);
+    app.get('/api/V1/role_management/modul_menu/read_by_modul_id/:id',dbModulMenu.read_by_modul_id);
     app.put('/api/V1/role_management/modul_menu/:id',dbModulMenu.update);
     app.delete('/api/V1/role_management/modul_menu/:id',dbModulMenu.delete_);
 // ===========================================================================
@@ -86,6 +87,7 @@ const dbRoleModul = require('./role_modul')
 // =========================== Role ==========================================
     app.post('/api/V1/role_management/role_modul',dbRoleModul.create);
     app.get('/api/V1/role_management/role_modul',dbRoleModul.read);
+    app.get('/api/V1/role_management/role_modul/:id',dbRoleModul.read_by_id);
     app.put('/api/V1/role_management/role_modul/:id',dbRoleModul.update);
     app.delete('/api/V1/role_management/role_modul/:id',dbRoleModul.delete_);
 // ===========================================================================
@@ -107,6 +109,10 @@ app.post('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.read_use
 app.put('/api/V1/role_management/user_role_stakeholder/:id',dbUserRole.update_role_stakeholder);
 app.get('/api/V1/role_management/modul_role_navigasi/:id',dbUserRole.read_modul_role_access);
 app.get('/api/V1/role_management/modul_role_stakeholder/:id',dbUserRole.read_modul_stakeholder_role_access);
+
+app.get('/api/V1/role_management/modul_role_navigasi/read_menu/:modul_id/:user_id',dbUserRole.read_modul_role_access_by_modul_and_user_id);
+
+app.get('/api/V1/role_management/user_role_navigasi/access_rights/:user_id',dbUserRole.read_access_rights);
 // =================================================================================
 
 const dbUser = require('./user')
